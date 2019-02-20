@@ -9,7 +9,7 @@ then
 ### `npm start`
 
 To start server
-### `cd` into `src/server`
+### `cd` into `server`
 ### `node socketserver.js`
 Server will start on port 8081
 
