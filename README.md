@@ -8,6 +8,11 @@ In the project directory, you can run:
 then
 ### `npm start`
 
+To start server
+### cd into src/server
+### node socketserver.js
+Server will start on port 8081
+
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
