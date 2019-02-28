@@ -35,7 +35,7 @@ export class MessageInput extends Component {
     return (
       <div className="message-input">
       	<div className="row">
-            <form className="col s12">
+            <form className="">
               <div className="row">
                 <div className="col s12">
                   <textarea id="message-input-field" className="materialize-textarea"

@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8081 });
+const wss = new WebSocket.Server({ port: 3030 });
+var connList = [];
+var sockList = [];
 
 
 const messageList = [
@@ -28,8 +30,47 @@ const messageList = [
 ];
 
 wss.on('connection', function connection(ws) {
+	//console.log(ws);
   ws.on('message', function incoming(message) {
+  	message = JSON.parse(message);
     console.log('received: %s', message);
-    setTimeout(() => {ws.send(messageList[Math.floor(Math.random() * messageList.length)])}, 500)
+    //setTimeout(() => {ws.send(messageList[Math.floor(Math.random() * messageList.length)])}, 500)
+    if(message.mtype !== "conn_update") {
+    	wss.clients.forEach(function(client) {
+	    	if(client != ws && client.readyState === WebSocket.OPEN) {
+	    		client.send(JSON.stringify(message));
+	    	}
+	    })
+    } else {
+    	handleNewClient(message);
+    	wss.clients.forEach(function(client) {
+	    	if(client.readyState === WebSocket.OPEN) {
+	    		client.send(JSON.stringify({mtype: message.mtype, userList: connList}));
+	    	}
+	    });
+    }
   });
+
+  ws.on('close', function close() {
+
+	sockList.forEach(function(client, index) {
+		  	//console.log(client, ws, index)
+    	if(client == ws) {
+    		sockList.splice(index, 1);
+    		connList.splice(index, 1);
+    	}
+    });
+    wss.clients.forEach(function(client) {
+    	if(client.readyState === WebSocket.OPEN) {
+    		client.send(JSON.stringify({mtype: "conn_update", userList: connList}));
+    	}
+    });
+  });
+  sockList.push(ws);
 });
+
+
+function handleNewClient(message) {
+	connList = [...connList, {username: message.username}];
+	//console.log(connList);
+}
