@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import {EmojiPallet} from './emoji-pallet';
 
 export class MessageInput extends Component {
   
   constructor(props) {
   	super(props);
+    this.state = {
+      emojiPalletVisible: false
+    };
   	this.sendMessage = this.sendMessage.bind(this);
+    this.emojiSelected = this.emojiSelected.bind(this);
+    this.closeEmojiPallet = this.closeEmojiPallet.bind(this);
+    this.toggleEmojiPallet = this.toggleEmojiPallet.bind(this);
   	this.handleMessage = this.props.handleMessage;
   }
   sendMessage(event) {
@@ -29,18 +36,37 @@ export class MessageInput extends Component {
   	this.handleMessage(message);
   }
 
+  toggleEmojiPallet() {
+    let opened = this.state.emojiPalletVisible;
+    this.setState({emojiPalletVisible: !opened});
+  }
+
+  closeEmojiPallet() {
+    this.setState({emojiPalletVisible: false});
+  }
+
+  emojiSelected(emoji) {
+    this.el.value=this.el.value+emoji;
+  }
+
+
 
 
   render() {
     return (
       <div className="message-input">
+        <EmojiPallet visible={this.state.emojiPalletVisible} onEmojiSelect={this.emojiSelected}/>
       	<div className="row">
             <form className="">
-              <div className="row">
-                <div className="col s12">
+              <div className="row input-area">
+                <div className="input-box">
                   <textarea id="message-input-field" className="materialize-textarea"
-                  onKeyPress={ this.sendMessage }
+                  onKeyPress={ this.sendMessage } ref={el => { this.el = el; }}
+                  onFocus={this.closeEmojiPallet}
                   ></textarea>
+                  </div>
+                  <div className="icon-btn">
+                  <a class="btn-floating waves-effect waves-light red emoji-btn" onClick={this.toggleEmojiPallet}><i class="material-icons">face</i></a>
                 </div>
               </div>
             </form>
