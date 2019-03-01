@@ -9,26 +9,60 @@ ul, li {
   list-style: none;
 }
 
+
+
 .chat-box {
-  width: 350px;
+  width: 500px;
+  height: 500px;
   border: 1px #aaa solid;
   position: fixed;
   bottom: 0;
   right: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-box .box-header {
-  height: 60px;
-  line-height: 60px;
+  height: 64px;
+  line-height: 64px;
+}
+
+.box-header nav {
+  background-color: teal;
+}
+.box-header nav .brand-logo {
+  padding-left: 10px;
+  font-size: 1.6rem;
+}
+
+.box-body {
+  width: 100%;
+  height: 450px;
+  display: flex;
+}
+
+.chat-box .people-list-box {
+  position: relative;
+  width: 25%;
+  border-right: 1px #aaa solid;
+}
+
+.people-list-box .people-list-item {
+  padding: 5px 10px;
+  border-bottom: 1px #ccc solid;
+  color: #555;
+  cursor: default;
 }
 .chat-box .box-main {
-  padding: 0;
-  background-color: #fff;
-  height: 350px;
+  position: relative;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .chat-box .box-footer {
-  height: 60px;
+  height: 64px;
   border-top: 1px #ccc solid;
 }
 
@@ -36,7 +70,7 @@ ul, li {
 .message-list {
   overflow-y: auto;
   width: 100%;
-  height: 100%;
+  margin-top: 2px;
 }
 .message-item .message-meta {
   display: flex;
@@ -44,7 +78,7 @@ ul, li {
   width: 100%;
   font-weight: lighter;
   font-size: 12px;
-  color: skyblue;
+  color: #0b6afd;
 }
 
 .message-item {
@@ -53,4 +87,10 @@ ul, li {
   background-color: #f0f0f0;
   margin: 10px 5px;
   border-radius: 4px;
+}
+
+.smiley {
+  width: 20px;
+  vertical-align: text-top;
+  margin: 2px;
 }

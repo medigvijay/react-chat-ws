@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getSmiley} from './smiley-creator';
 
 export class MessageItem extends Component {
   constructor(props) {
@@ -29,14 +30,14 @@ export class MessageItem extends Component {
   }
   render() {
   	let message = this.props.message;
+    let msg = getSmiley(message.message);
     return (
       <div className="message-item" id={message.id} ref={el => { this.el = el; }}>
       	<div className="message-meta">
 	      	<div className="message-by">{message.from}</div>
 	      	<div className="message-at">{message.meta.time}</div>
       	</div>
-      	<div className="message-body" >
-      		{message.body}
+      	<div className="message-body" dangerouslySetInnerHTML={{__html: msg}}>
       	</div>
       </div>
     );
